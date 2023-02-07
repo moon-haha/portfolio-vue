@@ -58,7 +58,6 @@ const store = createStore({
     },
     setAuthLogin(state) {
       state.AuthStatus = 1;
-      console.log(state);
     },
     setAuthLogout(state) {
       state.AuthStatus = 0;
@@ -124,12 +123,11 @@ const store = createStore({
         .post("api/auth/login", { id: state.Id, pw: state.Pw })
         .then((data) => {
           context.commit("setAuthLogin", data);
-          console.log(data);
         });
     },
     authLogout(context, state) {
       console.log(state);
-      axios.get("api/auth/logout").then((data) => {
+      axios.post("api/auth/logout").then((data) => {
         context.commit("setAuthLogout", data);
       });
     },
