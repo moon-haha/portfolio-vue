@@ -70,7 +70,9 @@ const store = createStore({
       state.Id = data.data.user.id;
       state.ObjectId = data.data.user._id;
       state.Tier = data.data.user.tier;
-      console.log(state.Id, state.ObjectId, state.Tier);
+    },
+    setTierData(state, data) {
+      state.Tier = data.data.user.tier;
     },
   },
   actions: {
@@ -145,6 +147,14 @@ const store = createStore({
       axios.get("api/auth/mypage").then((data) => {
         context.commit("setAuthData", data);
       });
+    },
+    changeAuthTier(context, state) {
+      //state로 TierValue 가져오기
+      axios
+        .post("api/auth/tier", { TierValue: state.TierValue })
+        .then((data) => {
+          context.commit("setTierData", data);
+        });
     },
   },
 });
