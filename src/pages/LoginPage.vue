@@ -116,7 +116,7 @@
     <div v-else-if="$store.state.AuthStatus === 1">
       <button
         class="w-100 btn btn-lg btn-primary"
-        @click.prevent="this.$store.dispatch('authLogout')"
+        @click="this.$store.dispatch('authLogout')"
       >
         로그아웃
       </button>
@@ -144,10 +144,8 @@ export default {
   watch: {
     "$store.state.AuthStatus": function () {
       if (this.$store.state.AuthStatus === 1) {
-        console.log("1입니다.");
         this.$router.push("mypage");
       } else if (this.$store.state.AuthStatus === 0) {
-        console.log("0입니다.");
         this.$router.push("login");
       }
     },

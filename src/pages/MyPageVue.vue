@@ -6,12 +6,17 @@
     <div>
       <h1 v-if="$store.state.Tier == 0">
         {{ $store.state.Tier }} 일반유저입니다.
+        <h1>- 댓글 관리 가능</h1>
       </h1>
       <h1 v-else-if="$store.state.Tier == 1">
         {{ $store.state.Tier }} 셀러유저입니다..
+        <h1>- 댓글 관리 가능</h1>
+        <h1>- 게시글 관리 가능</h1>
       </h1>
       <h1 v-else-if="$store.state.Tier == 2">
         {{ $store.state.Tier }} 관리자입니다..
+        <h1>- 모든 댓글 관리 가능</h1>
+        <h1>- 모든 게시글 관리 가능</h1>
       </h1>
     </div>
     <div class="dropdown">
@@ -81,8 +86,8 @@ export default {
       TierValue: 0,
     };
   },
-  mounted() {
-    this.$store.dispatch("getAuthData");
+  created() {
+    this.$store.dispatch("checkAuth");
   },
 };
 </script>

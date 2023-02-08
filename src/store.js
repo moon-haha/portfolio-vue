@@ -65,14 +65,15 @@ const store = createStore({
     },
     setAuthLogout(state) {
       state.AuthStatus = 0;
-    },
-    setAuthData(state, data) {
-      state.Id = data.data.user.id;
-      state.ObjectId = data.data.user._id;
-      state.Tier = data.data.user.tier;
+      state.Tier = 0;
     },
     setTierData(state, data) {
       state.Tier = data.data.user.tier;
+    },
+    setUserData(state, data) {
+      state.Id = data.data.id;
+      state.ObjectId = data.data._id;
+      state.Tier = data.data.tier;
     },
   },
   actions: {
@@ -155,6 +156,14 @@ const store = createStore({
         .then((data) => {
           context.commit("setTierData", data);
         });
+    },
+    checkAuth(context) {
+      axios.get("api/auth/check").then((data) => {
+        //AuthStatus 1, 0 비교
+        context.commit("setUserData", data);
+        context.commit("setAuthLogin", 1);
+        console.log(data);
+      });
     },
   },
 });

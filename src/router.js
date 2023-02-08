@@ -8,6 +8,7 @@ import CartPage from "./pages/CartPage.vue";
 import LoginPage from "./pages/LoginPage.vue";
 import DetailPage from "./pages/DetailPage.vue";
 import ResultPage from "./pages/ResultPage.vue";
+import WritePage from "./pages/WritePage.vue";
 import store from "./store";
 
 const routes = [
@@ -63,6 +64,19 @@ const routes = [
   {
     path: "/result",
     component: ResultPage,
+  },
+  {
+    path: "/write",
+    component: WritePage,
+    beforeEnter: (to, from, next) => {
+      if (store.state.Tier == 0) {
+        console.log("글작성불가능");
+        next("/");
+      } else if (store.state.Tier >= 1) {
+        console.log("글작성불가능");
+        next();
+      }
+    },
   },
 ];
 
