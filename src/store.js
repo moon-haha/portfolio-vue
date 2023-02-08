@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER;
+
 const store = createStore({
   state() {
     return {
@@ -15,6 +16,9 @@ const store = createStore({
       DetailData: [],
       SearchValue: [],
       AuthStatus: 0,
+      Id: "",
+      ObjectId: "",
+      Tier: 0,
     };
   },
   mutations: {
@@ -61,6 +65,12 @@ const store = createStore({
     },
     setAuthLogout(state) {
       state.AuthStatus = 0;
+    },
+    setAuthData(state, data) {
+      state.Id = data.data.user.id;
+      state.ObjectId = data.data.user._id;
+      state.Tier = data.data.user.tier;
+      console.log(state.Id, state.ObjectId, state.Tier);
     },
   },
   actions: {
@@ -122,13 +132,18 @@ const store = createStore({
       axios
         .post("api/auth/login", { id: state.Id, pw: state.Pw })
         .then((data) => {
+          context.commit("setAuthData", data);
           context.commit("setAuthLogin", data);
         });
     },
-    authLogout(context, state) {
-      console.log(state);
+    authLogout(context) {
       axios.post("api/auth/logout").then((data) => {
         context.commit("setAuthLogout", data);
+      });
+    },
+    getAuthData(context) {
+      axios.get("api/auth/mypage").then((data) => {
+        context.commit("setAuthData", data);
       });
     },
   },

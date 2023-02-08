@@ -30,7 +30,11 @@
         <button
           type="submit"
           class="btn btn-lg btn-primary"
-          @click="this.$store.dispatch('authLogin', this.login)"
+          @click.prevent="
+            this.$store.dispatch('authLogin', this.login).then((data) => {
+              $router.push('mypage');
+            })
+          "
         >
           로그인
         </button>
@@ -112,7 +116,7 @@
     <div v-else-if="$store.state.AuthStatus === 1">
       <button
         class="w-100 btn btn-lg btn-primary"
-        @click="this.$store.dispatch('authLogout')"
+        @click.prevent="this.$store.dispatch('authLogout')"
       >
         로그아웃
       </button>
@@ -135,6 +139,17 @@ export default {
     },
     updateLoginInputPw(e) {
       this.login.Pw = e.target.value;
+    },
+  },
+  watch: {
+    "$store.state.AuthStatus": function () {
+      if (this.$store.state.AuthStatus === 1) {
+        console.log("1입니다.");
+        this.$router.push("mypage");
+      } else if (this.$store.state.AuthStatus === 0) {
+        console.log("0입니다.");
+        this.$router.push("login");
+      }
     },
   },
 };

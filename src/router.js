@@ -8,6 +8,7 @@ import CartPage from "./pages/CartPage.vue";
 import LoginPage from "./pages/LoginPage.vue";
 import DetailPage from "./pages/DetailPage.vue";
 import ResultPage from "./pages/ResultPage.vue";
+import store from "./store";
 
 const routes = [
   {
@@ -33,6 +34,15 @@ const routes = [
   {
     path: "/mypage",
     component: MyPageVue,
+    beforeEnter: (to, from, next) => {
+      if (store.state.AuthStatus === 1) {
+        console.log(store.state.AuthStatus);
+        next();
+      } else if (store.state.AuthStatus === 0) {
+        console.log(store.state.AuthStatus);
+        next("/login");
+      }
+    },
   },
   {
     path: "/cart",
