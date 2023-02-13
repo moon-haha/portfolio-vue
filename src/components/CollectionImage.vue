@@ -29,7 +29,6 @@
           "
         >
           {{ a }}
-          >
         </SwiperSlide>
       </Swiper>
     </section>
@@ -42,7 +41,12 @@
 import GridSwiper from "../components/GridSwiper.vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 
-const categoryItems = ["electronics", "jewelery", "mens", "womens"];
+const categoryItems = [
+  "electronics",
+  "jewelery",
+  "men's clothing",
+  "women's clothing",
+];
 
 // Import Swiper styles
 import "swiper/css";

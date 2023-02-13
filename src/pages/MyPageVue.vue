@@ -29,7 +29,6 @@
         회원등급 변경
       </button>
       <ul class="dropdown-menu mt-3">
-        <!-- state로 TierValue 보내기 -->
         <li>
           <a
             class="dropdown-item"

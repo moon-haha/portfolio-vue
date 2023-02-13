@@ -1,40 +1,60 @@
 <template>
-  <div>
-    <input
-      id="title"
-      class="form-control"
-      type="text"
-      placeholder="title"
-      aria-label="default input example"
-    />
-    <input
-      id="price"
-      class="form-control"
-      type="number"
-      placeholder="price"
-      aria-label="default input example"
-    />
-    <input
-      id="description"
-      class="form-control"
-      type="text"
-      placeholder="description"
-      aria-label="default input example"
-    />
-    <input
-      id="category"
-      class="form-control"
-      type="text"
-      placeholder="category"
-      aria-label="default input example"
-    />
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <input
+          id="title"
+          class="form-control"
+          type="text"
+          placeholder="title"
+          aria-label="default input example"
+        />
+      </div>
+      <div class="col-6">
+        <input
+          id="price"
+          class="form-control"
+          type="number"
+          placeholder="price"
+          aria-label="default input example"
+        />
+      </div>
+      <div class="col-3">
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Category
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Electronics</a></li>
+            <li><a class="dropdown-item" href="#">jewellery</a></li>
+            <li><a class="dropdown-item" href="#">Mens</a></li>
+            <li><a class="dropdown-item" href="#">Womens</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-9">
+        <input
+          id="category"
+          class="form-control"
+          type="text"
+          placeholder="category"
+          aria-label="default input example"
+          disabled
+        />
+      </div>
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupFile01">Upload</label>
+        <input type="file" class="form-control" id="inputGroupFile01" />
+      </div>
 
-    <div class="mb-3">
-      <label for="formFile" class="form-label">image upload</label>
-      <input class="form-control" type="file" id="formFile" />
+      <div class="col-12"></div>
+      <div id="editor" />
     </div>
-
-    <div id="editor"></div>
   </div>
 </template>
 <script>
@@ -62,7 +82,7 @@ export default {
   },
   mounted() {
     this.editor = new Editor({
-      el: document.querySelector("#e  ditor"),
+      el: document.querySelector("#editor"),
       previewStyle: "vertical",
       initialEditType: "markdown",
       initialValue: "# 안녕",

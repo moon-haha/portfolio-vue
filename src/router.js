@@ -37,10 +37,10 @@ const routes = [
     component: MyPageVue,
     beforeEnter: (to, from, next) => {
       if (store.state.AuthStatus === 1) {
-        console.log(store.state.AuthStatus);
+        //console.log(store.state.AuthStatus);
         next();
       } else if (store.state.AuthStatus === 0) {
-        console.log(store.state.AuthStatus);
+        //console.log(store.state.AuthStatus);
         next("/login");
       }
     },

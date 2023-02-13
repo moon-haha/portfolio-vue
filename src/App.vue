@@ -27,7 +27,7 @@
               class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
             >
               <svg class="bi me-2" width="40" height="32">
-                <use xlink:href="#bootstrap"></use>
+                <use link:href="#bootstrap"></use>
               </svg>
             </a>
           </footer>
@@ -48,12 +48,6 @@ import LogoHeader from "./components/LogoHeader.vue";
 import FooterBar from "./components/FooterBar.vue";
 import FixedNavbar from "./components/FixedNavbar.vue";
 
-import axios from "axios";
-// 리소스 접근 허용
-axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
-// 서로 다른 도메인간 쿠키 전달 : false
-axios.defaults.withCredentials = false;
-
 export default {
   name: "App",
   components: {
@@ -68,6 +62,7 @@ export default {
   },
   methods: {},
   mounted() {
+    //App.vue
     this.$store.dispatch("checkAuth");
   },
 };
