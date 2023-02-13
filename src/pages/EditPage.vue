@@ -114,7 +114,6 @@ export default {
     },
     Update() {
       //API 서버에 글쓰기 요청
-
       axios
         .put("api/products/" + this.$route.params.id, {
           title: this.Products.Title,

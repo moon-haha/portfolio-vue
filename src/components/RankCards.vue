@@ -4,26 +4,46 @@
     v-if="RankingDropdownState == 1"
   >
     <div v-for="(a, i) in dataset" :key="i" class="col-6">
-      <router-link
-        :to="{ path: '/products/' + a.id }"
-        class="text-decoration-none text-dark"
-      >
+      <Transition name="Fade" v-if="show">
         <div class="card h-100">
-          <img
-            :src="a.image"
-            class="card-img-top"
-            style="height: 20rem; object-fit: cover"
-            alt="..."
-          />
+          <router-link
+            :to="{ path: '/products/' + a.id }"
+            class="text-decoration-none text-dark"
+          >
+            <img
+              :src="a.image"
+              class="card-img-top"
+              style="height: 20rem; object-fit: cover"
+              alt="..."
+            />
+          </router-link>
+
           <div class="card-body">
             <p class="card-text">{{ a.category }}</p>
             <h3 class="card-title">{{ a.title }}</h3>
             <p class="card-text">{{ a.description }}</p>
             <h3 class="card-text">{{ a.price }} $</h3>
             <p class="card-text">{{ a.rating.count }}</p>
+            <span
+              v-if="!a.editor || a.editor === this.$store.state.auth.ObjectId"
+            >
+              <span v-if="this.$store.state.auth.Tier > 0">
+                <p>Editor : {{ a.editor }}</p>
+                <p>User : {{ $store.state.auth.ObjectId }}</p>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  @click="
+                    $store.dispatch('deleteProducts', a.id), (show = !show)
+                  "
+                >
+                  DELETE
+                </button>
+              </span>
+            </span>
           </div>
         </div>
-      </router-link>
+      </Transition>
     </div>
   </div>
   <div
@@ -89,6 +109,11 @@ export default {
   props: {
     RankingDropdownState: Number,
     dataset: Array,
+  },
+  data() {
+    return {
+      show: true,
+    };
   },
 };
 </script>

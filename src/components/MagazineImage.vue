@@ -26,36 +26,60 @@
       :key="i"
       style="width: 100%"
     >
-      <router-link
-        :to="{ path: '/products/' + a.id }"
-        class="text-decoration-none text-dark"
-      >
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img
-              :src="a.image"
-              class="img-fluid mx-auto d-block"
-              alt="..."
-              style="height: 10rem; object-fit: cover; margin: auto"
-            />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h1>평점 : {{ a.rating.rate }}</h1>
-              <h5 class="card-title">{{ a.title }},</h5>
-              <p class="card-text">
-                {{ a.description }}
-              </p>
-              <p class="card-text">{{ a.price }},000원</p>
+      <Transition name="Fade" v-if="show">
+        <div>
+          <div class="row g-0">
+            <div class="col-md-4">
+              <router-link
+                :to="{ path: '/products/' + a.id }"
+                class="text-decoration-none text-dark"
+              >
+                <img
+                  :src="a.image"
+                  class="img-fluid mx-auto d-block"
+                  alt="..."
+                  style="height: 8rem; object-fit: cover; margin: auto"
+                />
+              </router-link>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h1>평점 : {{ a.rating.rate }}</h1>
+                <h5 class="card-title">{{ a.title }},</h5>
+                <p class="card-text">
+                  {{ a.description }}
+                </p>
+                <p class="card-text">{{ a.price }},000원</p>
+              </div>
             </div>
           </div>
+          <span
+            v-if="!a.editor || a.editor === this.$store.state.auth.ObjectId"
+          >
+            <span v-if="this.$store.state.auth.Tier > 0">
+              <p>Editor : {{ a.editor }}</p>
+              <p>User : {{ $store.state.auth.ObjectId }}</p>
+              <button
+                type="button"
+                class="btn btn-danger"
+                @click="$store.dispatch('deleteProducts', a.id), (show = !show)"
+              >
+                DELETE
+              </button>
+            </span>
+          </span>
         </div>
-      </router-link>
+      </Transition>
     </div>
   </section>
 </template>
 <script>
 export default {
+  data() {
+    return {
+      show: true,
+    };
+  },
   created() {
     this.$store.dispatch("getMD");
   },

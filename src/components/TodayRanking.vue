@@ -72,6 +72,7 @@ export default {
     return {
       categoryItems: categoryItems,
       loading: true,
+      show: true,
     };
   },
   created() {

@@ -141,6 +141,16 @@ const products = {
         context.commit("setSearchValue", data);
       });
     },
+    deleteProducts(context, state) {
+      axios
+        .delete(`api/products/${state}`)
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
   },
 };
 export default products;

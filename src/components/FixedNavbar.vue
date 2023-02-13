@@ -48,4 +48,4 @@ export default {
   name: "FixedNavbar",
 };
 </script>
-<style lang=""></style>
+<style></style>
