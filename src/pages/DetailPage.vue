@@ -23,7 +23,7 @@
     </Swiper>
     <div class="card">
       <div class="card-body">
-        <div class>
+        <div>
           <h5 class="card-title">
             상품명 : {{ $store.state.products.DetailData.data.title }}
           </h5>
@@ -80,12 +80,25 @@
 
             <span
               v-if="
-                !$store.state.products.DetailData.data.ObjectId ||
+                !$store.state.products.DetailData.data.editor ||
                 $store.state.auth.ObjectId ==
                   $store.state.products.DetailData.data.ObjectId
               "
             >
-              <button type="button" class="btn btn-success">수정가능</button>
+              <span v-if="$store.state.auth.tier > 0">
+                <router-link
+                  :to="{
+                    path:
+                      '/products/edit/' +
+                      this.$store.state.products.DetailData.data.id,
+                  }"
+                  class="text-decoration-none text-dark"
+                >
+                  <button type="button" class="btn btn-success">
+                    수정가능
+                  </button>
+                </router-link>
+              </span>
             </span>
 
             <!-- Modal -->
@@ -264,6 +277,7 @@ export default {
     };
   },
   beforeCreate() {
+    this.$store.dispatch("checkAuth");
     this.$store
       .dispatch("getDetailData", this.$route.params)
       .then(() => {})

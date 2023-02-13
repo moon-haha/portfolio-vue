@@ -8,6 +8,7 @@
           type="text"
           placeholder="Title"
           @input="updateTitle"
+          :value="$store.state.products.DetailData.data.title"
           aria-label="default input example"
         />
       </div>
@@ -18,6 +19,7 @@
           type="number"
           placeholder="price"
           @input="updatePrice"
+          :value="$store.state.products.DetailData.data.price"
           aria-label="default input example"
         />
       </div>
@@ -29,6 +31,7 @@
             aria-label="With textarea"
             placeholder="description"
             @input="updateDescription"
+            :value="$store.state.products.DetailData.data.description"
           ></textarea>
         </div>
       </div>
@@ -37,7 +40,12 @@
           <label class="input-group-text" for="inputGroupSelect01"
             >Category</label
           >
-          <select @input="updateCategory" class="form-select" id="Category">
+          <select
+            @input="updateCategory"
+            :select="$store.state.products.DetailData.data.category"
+            class="form-select"
+            id="Category"
+          >
             <option>Electronics</option>
             <option>Jewelry</option>
             <option>Men's Clothing</option>
@@ -74,11 +82,8 @@ export default {
 
   watch: {
     "$store.auth.state.Tier": function () {
-      if (this.$store.auth.state.Tier == 0) {
-        console.log("글작성불가능");
+      if (this.$store.state.auth.Tier == 0) {
         this.$router.push("/");
-      } else if (this.$store.auth.state.Tier > 0) {
-        console.log("글작성가능");
       }
     },
   },
@@ -89,10 +94,17 @@ export default {
         Description: "",
         Price: Number,
         //Image: String,
-        Category: "Electronics",
-        Editor: this.$store.state.auth.ObjectId,
+        Category: "",
+        Editor: "",
       },
     };
+  },
+  beforeCreate() {
+    this.$store.dispatch("checkAuth");
+    this.$store
+      .dispatch("getDetailData", this.$route.params)
+      .then(() => {})
+      .catch(() => {});
   },
   methods: {
     updateTitle(e) {

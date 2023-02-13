@@ -127,9 +127,15 @@ const products = {
       });
     },
     getDetailData(context, state) {
-      axios.get(`api/products/${state.id}`).then((data) => {
-        context.commit("setDetailData", data);
-      });
+      axios
+        .get(`api/products/${state.id}`)
+        .then((data) => {
+          console.log(data);
+          context.commit("setDetailData", data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
     getSearchResult(context, state) {
       axios.get(`api/products/search?value=${state}`).then((data) => {

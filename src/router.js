@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage.vue";
 import DetailPage from "./pages/DetailPage.vue";
 import ResultPage from "./pages/ResultPage.vue";
 import WritePage from "./pages/WritePage.vue";
+import EditPage from "./pages/EditPage.vue";
 import store from "./store";
 
 const routes = [
@@ -56,6 +57,10 @@ const routes = [
   {
     path: "/products/:id",
     component: DetailPage,
+  },
+  {
+    path: "/products/edit/:id",
+    component: EditPage,
   },
   {
     path: "/search",
