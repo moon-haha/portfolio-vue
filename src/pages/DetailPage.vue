@@ -41,7 +41,8 @@
           평점 : {{ $store.state.products.DetailData.data.rating.rate }}점
         </h4>
         <h4>
-          판매량 : {{ $store.state.products.DetailData.data.rating.count }}
+          판매량 :
+          {{ $store.state.products.DetailData.data.rating.count }}
           <div class="float-end">
             <button
               type="button"
@@ -74,8 +75,18 @@
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
-              카트에 담기
+              카트담기
             </button>
+
+            <span
+              v-if="
+                !$store.state.products.DetailData.data.ObjectId ||
+                $store.state.auth.ObjectId ==
+                  $store.state.products.DetailData.data.ObjectId
+              "
+            >
+              <button type="button" class="btn btn-success">수정가능</button>
+            </span>
 
             <!-- Modal -->
             <div
@@ -256,9 +267,7 @@ export default {
     this.$store
       .dispatch("getDetailData", this.$route.params)
       .then(() => {})
-      .catch((e) => {
-        console.log(e);
-      });
+      .catch(() => {});
   },
   methods: {
     toast() {

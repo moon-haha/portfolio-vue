@@ -6,7 +6,8 @@
           id="title"
           class="form-control"
           type="text"
-          placeholder="title"
+          placeholder="Title"
+          @input="updateTitle"
           aria-label="default input example"
         />
       </div>
@@ -16,52 +17,57 @@
           class="form-control"
           type="number"
           placeholder="price"
+          @input="updatePrice"
           aria-label="default input example"
         />
       </div>
-      <div class="col-3">
-        <div class="dropdown">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Category
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Electronics</a></li>
-            <li><a class="dropdown-item" href="#">jewellery</a></li>
-            <li><a class="dropdown-item" href="#">Mens</a></li>
-            <li><a class="dropdown-item" href="#">Womens</a></li>
-          </ul>
+      <div class="col-12 mt-2">
+        <div class="input-group">
+          <textarea
+            class="form-control"
+            id="description"
+            aria-label="With textarea"
+            placeholder="description"
+            @input="updateDescription"
+          ></textarea>
         </div>
       </div>
-      <div class="col-9">
-        <input
-          id="category"
-          class="form-control"
-          type="text"
-          placeholder="category"
-          aria-label="default input example"
-          disabled
-        />
+      <div class="col-12 mt-2">
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01"
+            >Category</label
+          >
+          <select @input="updateCategory" class="form-select" id="Category">
+            <option>Electronics</option>
+            <option>Jewelry</option>
+            <option>Men's Clothing</option>
+            <option>Women's Clothing</option>
+          </select>
+        </div>
       </div>
       <div class="input-group mb-3">
         <label class="input-group-text" for="inputGroupFile01">Upload</label>
-        <input type="file" class="form-control" id="inputGroupFile01" />
+        <input
+          type="file"
+          @input="updateImage"
+          class="form-control"
+          id="image"
+          disabled
+        />
       </div>
-
-      <div class="col-12"></div>
-      <div id="editor" />
+      <div class="col-12">
+        <button type="button" @click="Upload" class="btn btn-primary btn-lg">
+          Upload
+        </button>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import Editor from "@toast-ui/editor";
-import "@toast-ui/editor/dist/toastui-editor.css"; // Editor's Style
-//import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer";
-//import "@toast-ui/editor/dist/toastui-editor-viewer.css";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = process.env.VUE_APP_API_SERVER;
 
 export default {
   name: "WriteEditor",
@@ -77,19 +83,50 @@ export default {
   },
   data() {
     return {
-      editor: null,
+      Products: {
+        Title: "",
+        Description: "",
+        Price: Number,
+        //Image: String,
+        Category: "Electronics",
+        Editor: this.$store.state.auth.ObjectId,
+      },
     };
   },
-  mounted() {
-    this.editor = new Editor({
-      el: document.querySelector("#editor"),
-      previewStyle: "vertical",
-      initialEditType: "markdown",
-      initialValue: "# 안녕",
-      height: "700px",
-      theme: "dark",
-    });
+  methods: {
+    updateTitle(e) {
+      this.Products.Title = e.target.value;
+      console.log(this.Products.Title);
+    },
+    updateDescription(e) {
+      this.Products.Description = e.target.value;
+    },
+    updatePrice(e) {
+      this.Products.Price = e.target.value;
+    },
+    updateImage(e) {
+      this.Products.Image = e.target.value;
+    },
+    updateCategory(e) {
+      this.Products.Category = e.target.value;
+    },
+    Upload() {
+      //API 서버에 글쓰기 요청
+      axios
+        .post("api/products", {
+          title: this.Products.Title,
+          description: this.Products.Description,
+          price: this.Products.Price,
+          category: this.Products.Category,
+          editor: this.Products.Editor,
+        })
+        .then(() => {
+          this.$router.push("/");
+        });
+      //this.products
+    },
   },
+  mounted() {},
 };
 </script>
 <style></style>

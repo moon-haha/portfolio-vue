@@ -95,13 +95,29 @@ const products = {
             `api/products/sort/${this.state.products.currentSort}/category/${this.state.products.currentCategory}`
           )
           .then((data) => {
-            context.commit("setRankingDataset", data);
+            if (this.state.products.currentSort == "recent") {
+              //id 내림차순 정렬
+              data.data.sort(function (a, b) {
+                return b.id - a.id;
+              });
+              context.commit("setRankingDataset", data);
+            } else {
+              context.commit("setRankingDataset", data);
+            }
           });
       } else if (this.state.products.currentCategory == "") {
         axios
           .get(`api/products/sort/${this.state.products.currentSort}/`)
           .then((data) => {
-            context.commit("setRankingDataset", data);
+            if (this.state.products.currentSort == "recent") {
+              //id 내림차순 정렬
+              data.data.sort(function (a, b) {
+                return b.id - a.id;
+              });
+              context.commit("setRankingDataset", data);
+            } else {
+              context.commit("setRankingDataset", data);
+            }
           });
       }
     },
