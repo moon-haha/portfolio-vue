@@ -21,7 +21,7 @@
     <div class="mt-3"></div>
 
     <div
-      v-for="(a, i) in $store.state.mdDataset.data"
+      v-for="(a, i) in $store.state.products.mdDataset.data"
       class="card mt-3 mb-3"
       :key="i"
       style="width: 100%"

@@ -17,6 +17,46 @@ const products = {
       SearchValue: [],
     };
   },
+  mutations: {
+    setCountDataset(state, data) {
+      state.countDataset = data;
+    },
+    setRecents(state, data) {
+      state.recentDataset = data;
+    },
+    setRating(state, data) {
+      state.rateDataset = data;
+    },
+    setMD(state, data) {
+      state.mdDataset = data;
+      state.mdDataset.data.length = 2;
+    },
+    setCurrentCategory(state, data) {
+      state.currentCategory = data;
+    },
+    setCatCount(state, data) {
+      state.countDataset = data;
+    },
+    setCatRecent(state, data) {
+      state.recentDataset = data;
+    },
+    setRankingDataset(state, data) {
+      state.rankingDataset = data;
+    },
+    setRankingDatasetInit(state, data) {
+      state.rankingDataset = data;
+      state.currentSort = "count";
+    },
+    setCurrentSort(state, data) {
+      state.currentSort = data;
+    },
+    setDetailData(state, data) {
+      state.DetailData = data;
+    },
+    setSearchValue(state, data) {
+      state.SearchValue = data;
+    },
+  },
   actions: {
     getCountDataset(context) {
       axios.get("api/products/sort/count").then((data) => {

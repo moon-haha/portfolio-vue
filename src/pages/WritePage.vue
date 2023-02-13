@@ -66,11 +66,11 @@ import "@toast-ui/editor/dist/toastui-editor.css"; // Editor's Style
 export default {
   name: "WriteEditor",
   watch: {
-    "$store.state.Tier": function () {
-      if (this.$store.state.Tier == 0) {
+    "$store.auth.state.Tier": function () {
+      if (this.$store.auth.state.Tier == 0) {
         console.log("글작성불가능");
         this.$router.push("/");
-      } else if (this.$store.state.Tier > 0) {
+      } else if (this.$store.auth.state.Tier > 0) {
         console.log("글작성가능");
       }
     },

@@ -38,7 +38,7 @@
       <section>
         <GridSwiper
           :loading="loading"
-          :dataset="$store.state.countDataset.data"
+          :dataset="$store.state.products.countDataset.data"
           class="mt-3"
         />
       </section>

@@ -1,20 +1,20 @@
 <template>
   <div>
     MyPageVue
-    <h1>Hello {{ $store.state.Id }}</h1>
-    <h2>{{ $store.state.ObjectId }}</h2>
+    <h1>Hello {{ $store.state.auth.Id }}</h1>
+    <h2>{{ $store.state.auth.ObjectId }}</h2>
     <div>
-      <h1 v-if="$store.state.Tier == 0">
-        {{ $store.state.Tier }} 일반유저입니다.
+      <h1 v-if="$store.state.auth.Tier == 0">
+        {{ $store.state.auth.Tier }} 일반유저입니다.
         <h1>- 댓글 관리 가능</h1>
       </h1>
-      <h1 v-else-if="$store.state.Tier == 1">
-        {{ $store.state.Tier }} 셀러유저입니다..
+      <h1 v-else-if="$store.state.auth.Tier == 1">
+        {{ $store.state.auth.Tier }} 셀러유저입니다..
         <h1>- 댓글 관리 가능</h1>
         <h1>- 게시글 관리 가능</h1>
       </h1>
-      <h1 v-else-if="$store.state.Tier == 2">
-        {{ $store.state.Tier }} 관리자입니다..
+      <h1 v-else-if="$store.state.auth.Tier == 2">
+        {{ $store.state.auth.Tier }} 관리자입니다..
         <h1>- 모든 댓글 관리 가능</h1>
         <h1>- 모든 게시글 관리 가능</h1>
       </h1>
@@ -35,7 +35,9 @@
             @click="
               (TierValue = 0),
                 this.$store
-                  .dispatch('changeAuthTier', { TierValue: this.TierValue })
+                  .dispatch('changeAuthTier', {
+                    TierValue: this.auth.TierValue,
+                  })
                   .then((data) => {
                     $router.push('mypage');
                   })
@@ -50,7 +52,9 @@
             @click="
               (TierValue = 1),
                 this.$store
-                  .dispatch('changeAuthTier', { TierValue: this.TierValue })
+                  .dispatch('changeAuthTier', {
+                    TierValue: this.auth.TierValue,
+                  })
                   .then((data) => {
                     $router.push('mypage');
                   })
@@ -65,7 +69,9 @@
             @click="
               (TierValue = 2),
                 this.$store
-                  .dispatch('changeAuthTier', { TierValue: this.TierValue })
+                  .dispatch('changeAuthTier', {
+                    TierValue: this.auth.TierValue,
+                  })
                   .then((data) => {
                     $router.push('mypage');
                   })

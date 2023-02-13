@@ -69,7 +69,7 @@
     </div>
     <div class="clearfix"></div>
     <RankCards
-      :dataset="this.$store.state.rankingDataset.data"
+      :dataset="this.$store.state.products.rankingDataset.data"
       :RankingDropdownState="RankingDropdownState"
     />
   </div>

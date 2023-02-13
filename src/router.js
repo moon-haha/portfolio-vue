@@ -36,10 +36,10 @@ const routes = [
     path: "/mypage",
     component: MyPageVue,
     beforeEnter: (to, from, next) => {
-      if (store.state.AuthStatus === 1) {
+      if (store.state.auth.AuthStatus === 1) {
         //console.log(store.state.AuthStatus);
         next();
-      } else if (store.state.AuthStatus === 0) {
+      } else if (store.state.auth.AuthStatus === 0) {
         //console.log(store.state.AuthStatus);
         next("/login");
       }
@@ -69,10 +69,10 @@ const routes = [
     path: "/write",
     component: WritePage,
     beforeEnter: (to, from, next) => {
-      if (store.state.Tier == 0) {
+      if (store.state.auth.Tier == 0) {
         console.log("글작성불가능");
         next("/");
-      } else if (store.state.Tier >= 1) {
+      } else if (store.state.auth.Tier >= 1) {
         console.log("글작성불가능");
         next();
       }

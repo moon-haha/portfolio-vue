@@ -33,7 +33,10 @@
       </Swiper>
     </section>
 
-    <GridSwiper :dataset="$store.state.recentDataset.data" class="mt-3" />
+    <GridSwiper
+      :dataset="$store.state.products.recentDataset.data"
+      class="mt-3"
+    />
   </section>
 </template>
 <script>

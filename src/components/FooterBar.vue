@@ -87,7 +87,10 @@
             마이페이지</router-link
           >
         </li>
-        <li class="flex-fill nav-item text-center" v-if="$store.state.Tier > 0">
+        <li
+          class="flex-fill nav-item text-center"
+          v-if="$store.state.auth.Tier > 0"
+        >
           <router-link to="write" class="active nav-link">
             <div>
               <svg

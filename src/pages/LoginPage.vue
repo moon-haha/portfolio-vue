@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div v-if="$store.state.AuthStatus === 0">
+    <div v-if="$store.state.auth.AuthStatus === 0">
       <h1 class="h3 mb-3 fw-normal">로그인 페이지</h1>
       <form>
         <div class="form-floating">
@@ -113,7 +113,7 @@
         </div>
       </div>
     </div>
-    <div v-else-if="$store.state.AuthStatus === 1">
+    <div v-else-if="$store.state.auth.AuthStatus === 1">
       <button
         class="w-100 btn btn-lg btn-primary"
         @click="this.$store.dispatch('authLogout')"
@@ -142,10 +142,10 @@ export default {
     },
   },
   watch: {
-    "$store.state.AuthStatus": function () {
-      if (this.$store.state.AuthStatus === 1) {
+    "$store.state.auth.AuthStatus": function () {
+      if (this.$store.state.auth.AuthStatus === 1) {
         this.$router.push("mypage");
-      } else if (this.$store.state.AuthStatus === 0) {
+      } else if (this.$store.state.auth.AuthStatus === 0) {
         this.$router.push("login");
       }
     },

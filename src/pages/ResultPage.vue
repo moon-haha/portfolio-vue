@@ -3,7 +3,7 @@
     <h4>검색결과 : {{ $route.query.id }}</h4>
     <div class="row">
       <div
-        v-for="(a, i) in $store.state.SearchValue.data"
+        v-for="(a, i) in $store.state.products.SearchValue.data"
         :key="i"
         class="col-6"
       >

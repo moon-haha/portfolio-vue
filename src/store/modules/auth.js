@@ -39,7 +39,7 @@ const auth = {
       axios
         .post("api/auth/login", { id: state.Id, pw: state.Pw })
         .then((data) => {
-          context.commit("setAuthData", data);
+          context.commit("setUserData", data);
           context.commit("setAuthLogin", data);
         });
     },
@@ -50,7 +50,7 @@ const auth = {
     },
     getAuthData(context) {
       axios.get("api/auth/mypage").then((data) => {
-        context.commit("setAuthData", data);
+        context.commit("setUserData", data);
       });
     },
     changeAuthTier(context, state) {

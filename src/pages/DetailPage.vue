@@ -3,19 +3,19 @@
     <Swiper :pagination="true" :modules="modules" class="mySwiper">
       <SwiperSlide>
         <img
-          :src="$store.state.DetailData.data.image"
+          :src="$store.state.products.DetailData.data.image"
           class="d-block w-100"
           alt="..."
         /> </SwiperSlide
       ><SwiperSlide>
         <img
-          :src="$store.state.DetailData.data.image"
+          :src="$store.state.products.DetailData.data.image"
           class="d-block w-100"
           alt="..."
         /> </SwiperSlide
       ><SwiperSlide>
         <img
-          :src="$store.state.DetailData.data.image"
+          :src="$store.state.products.DetailData.data.image"
           class="d-block w-100"
           alt="..."
         />
@@ -25,19 +25,23 @@
       <div class="card-body">
         <div class>
           <h5 class="card-title">
-            상품명 : {{ $store.state.DetailData.data.title }}
+            상품명 : {{ $store.state.products.DetailData.data.title }}
           </h5>
-          <h4>카테고리 : {{ $store.state.DetailData.data.category }}</h4>
+          <h4>
+            카테고리 : {{ $store.state.products.DetailData.data.category }}
+          </h4>
         </div>
         <div class="clearfix"></div>
         <p class="card-text">
-          상세설명 : {{ $store.state.DetailData.data.description }}
+          상세설명 : {{ $store.state.products.DetailData.data.description }}
         </p>
 
-        <h3>가격 : {{ $store.state.DetailData.data.price }} 원</h3>
-        <h4>평점 : {{ $store.state.DetailData.data.rating.rate }}점</h4>
+        <h3>가격 : {{ $store.state.products.DetailData.data.price }} 원</h3>
         <h4>
-          판매량 : {{ $store.state.DetailData.data.rating.count }}
+          평점 : {{ $store.state.products.DetailData.data.rating.rate }}점
+        </h4>
+        <h4>
+          판매량 : {{ $store.state.products.DetailData.data.rating.count }}
           <div class="float-end">
             <button
               type="button"
@@ -181,7 +185,7 @@
         aria-labelledby="home-tab"
         tabindex="0"
       >
-        {{ $store.state.DetailData.data.description }}
+        {{ $store.state.products.DetailData.data.description }}
         <div class="mt-3">
           <h4>태그</h4>
           <hr />
@@ -254,7 +258,7 @@ export default {
       .dispatch("getDetailData", this.$route.params)
       .then(
         () => (
-          this.$store.state.DetailData == this.detailProducts,
+          this.$store.products.state.DetailData == this.products.detailProducts,
           (this.loading = false)
         )
       )
@@ -280,7 +284,7 @@ export default {
         // 1. 만약에 로컬스토리지가 비었으면 - JSON stringify해서 데이터를 넣는다
         localStorage.setItem(
           "likeList",
-          JSON.stringify(this.$store.state.DetailData.data)
+          JSON.stringify(this.$store.products.state.DetailData.data)
         );
         localStorage.setItem("Count", 1); // 카운트는 1
         console.log("저장하고 메시지 뱉어기");
@@ -295,7 +299,7 @@ export default {
         let beforeData = JSON.parse(localStorage.getItem("likeList"));
         console.log("리스트 가져오고");
         let afterList = JSON.parse(
-          JSON.stringify(this.$store.state.DetailData.data)
+          JSON.stringify(this.products.$store.state.products.DetailData.data)
         );
         console.log("지금 데이터 가져오고");
         //이전 데이터 배열에서 id값을 가져와서 일치하는 id가 있으면 setItem 하지 않는다.

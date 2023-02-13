@@ -27,7 +27,10 @@
       style="height: 400px"
       class="mt-5"
     >
-      <swiper-slide v-for="(a, i) in $store.state.rateDataset.data" :key="i">
+      <swiper-slide
+        v-for="(a, i) in $store.state.products.rateDataset.data"
+        :key="i"
+      >
         <router-link
           :to="{ path: '/products/' + a.id }"
           class="text-decoration-none text-dark"
