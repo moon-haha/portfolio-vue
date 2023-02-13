@@ -89,17 +89,17 @@ const products = {
       });
     },
     rankingDataset(context) {
-      if (this.state.currentCategory) {
+      if (this.state.products.currentCategory) {
         axios
           .get(
-            `api/products/sort/${this.state.currentSort}/category/${this.state.currentCategory}`
+            `api/products/sort/${this.state.products.currentSort}/category/${this.state.products.currentCategory}`
           )
           .then((data) => {
             context.commit("setRankingDataset", data);
           });
-      } else if (this.state.currentCategory == "") {
+      } else if (this.state.products.currentCategory == "") {
         axios
-          .get(`api/products/sort/${this.state.currentSort}/`)
+          .get(`api/products/sort/${this.state.products.currentSort}/`)
           .then((data) => {
             context.commit("setRankingDataset", data);
           });

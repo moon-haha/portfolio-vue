@@ -249,21 +249,15 @@ export default {
   },
   data() {
     return {
-      detailProducts: [],
       toastMessage: "찜에 추가되었어요.",
     };
   },
-  created() {
+  beforeCreate() {
     this.$store
       .dispatch("getDetailData", this.$route.params)
-      .then(
-        () => (
-          this.$store.products.state.DetailData == this.products.detailProducts,
-          (this.loading = false)
-        )
-      )
+      .then(() => {})
       .catch((e) => {
-        e;
+        console.log(e);
       });
   },
   methods: {

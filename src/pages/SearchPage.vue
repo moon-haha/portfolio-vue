@@ -25,30 +25,39 @@
     </div>
     <div class="list-group">
       <h4>카테고리</h4>
-      <a
-        href="#"
+      <router-link
+        to="/result?id=Electronics"
         class="list-group-item list-group-item-action"
         aria-current="true"
       >
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Electronics</h5>
         </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
+      </router-link>
+      <router-link
+        to="/result?id=Jewelery"
+        class="list-group-item list-group-item-action"
+      >
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Jewelery</h5>
         </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
+      </router-link>
+      <router-link
+        to="/result?id=Men's Clothing"
+        class="list-group-item list-group-item-action"
+      >
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Men's Clothing</h5>
         </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
+      </router-link>
+      <router-link
+        to="/result?id=Women's Clothing"
+        class="list-group-item list-group-item-action"
+      >
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Women's Clothing</h5>
         </div>
-      </a>
+      </router-link>
     </div>
   </div>
 </template>

@@ -7,8 +7,8 @@
           class="SwiperSlide"
           v-for="(a, i) in categoryItems"
           @click="
-            $store.commit('setCurrentCategory', a),
-              $store.dispatch('rankingDataset', a)
+            this.$store.commit('setCurrentCategory', a),
+              this.$store.dispatch('rankingDataset', a)
           "
           :key="i"
         >
