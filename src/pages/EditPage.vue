@@ -64,8 +64,8 @@
         />
       </div>
       <div class="col-12">
-        <button type="button" @click="Upload" class="btn btn-primary btn-lg">
-          Upload
+        <button type="button" @click="Update" class="btn btn-primary btn-lg">
+          Update
         </button>
       </div>
     </div>
@@ -78,15 +78,6 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER;
 
 export default {
-  name: "WritePage",
-
-  watch: {
-    "$store.auth.state.Tier": function () {
-      if (this.$store.state.auth.Tier == 0) {
-        this.$router.push("/");
-      }
-    },
-  },
   data() {
     return {
       Products: {
@@ -100,7 +91,6 @@ export default {
     };
   },
   beforeCreate() {
-    this.$store.dispatch("checkAuth");
     this.$store
       .dispatch("getDetailData", this.$route.params)
       .then(() => {})
@@ -109,7 +99,6 @@ export default {
   methods: {
     updateTitle(e) {
       this.Products.Title = e.target.value;
-      console.log(this.Products.Title);
     },
     updateDescription(e) {
       this.Products.Description = e.target.value;
@@ -123,10 +112,11 @@ export default {
     updateCategory(e) {
       this.Products.Category = e.target.value;
     },
-    Upload() {
+    Update() {
       //API 서버에 글쓰기 요청
+
       axios
-        .post("api/products", {
+        .put("api/products/" + this.$route.params.id, {
           title: this.Products.Title,
           description: this.Products.Description,
           price: this.Products.Price,
@@ -134,7 +124,7 @@ export default {
           editor: this.Products.Editor,
         })
         .then(() => {
-          this.$router.push("/");
+          this.$router.push("/products/" + this.$route.params.id);
         });
       //this.products
     },

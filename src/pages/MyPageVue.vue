@@ -33,14 +33,13 @@
           <a
             class="dropdown-item"
             @click="
-              (TierValue = 0),
-                this.$store
-                  .dispatch('changeAuthTier', {
-                    TierValue: this.auth.TierValue,
-                  })
-                  .then((data) => {
-                    $router.push('mypage');
-                  })
+              this.$store
+                .dispatch('changeAuthTier', {
+                  TierValue: 0,
+                })
+                .then((data) => {
+                  $router.push('mypage');
+                })
             "
             href="#"
             >User</a
@@ -50,14 +49,13 @@
           <a
             class="dropdown-item"
             @click="
-              (TierValue = 1),
-                this.$store
-                  .dispatch('changeAuthTier', {
-                    TierValue: this.auth.TierValue,
-                  })
-                  .then((data) => {
-                    $router.push('mypage');
-                  })
+              this.$store
+                .dispatch('changeAuthTier', {
+                  TierValue: 1,
+                })
+                .then((data) => {
+                  $router.push('mypage');
+                })
             "
             href="#"
             >Seller</a
@@ -67,14 +65,13 @@
           <a
             class="dropdown-item"
             @click="
-              (TierValue = 2),
-                this.$store
-                  .dispatch('changeAuthTier', {
-                    TierValue: this.auth.TierValue,
-                  })
-                  .then((data) => {
-                    $router.push('mypage');
-                  })
+              this.$store
+                .dispatch('changeAuthTier', {
+                  TierValue: 2,
+                })
+                .then((data) => {
+                  $router.push('mypage');
+                })
             "
             href="#"
             >Admin</a

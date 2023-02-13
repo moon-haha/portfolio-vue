@@ -130,7 +130,6 @@ const products = {
       axios
         .get(`api/products/${state.id}`)
         .then((data) => {
-          console.log(data);
           context.commit("setDetailData", data);
         })
         .catch((e) => {

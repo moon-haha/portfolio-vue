@@ -78,14 +78,17 @@
               카트담기
             </button>
 
+            <!-- 1. 현재 유저의 Auth.tier를 체크한다.
+            2. 데이터 에디터가 없다면 패스
+            3. 데이터 에디터가 있다면 체크 -->
             <span
               v-if="
                 !$store.state.products.DetailData.data.editor ||
                 $store.state.auth.ObjectId ==
-                  $store.state.products.DetailData.data.ObjectId
+                  $store.state.products.DetailData.data.editor
               "
             >
-              <span v-if="$store.state.auth.tier > 0">
+              <span v-if="$store.state.auth.Tier > 0">
                 <router-link
                   :to="{
                     path:
@@ -277,7 +280,6 @@ export default {
     };
   },
   beforeCreate() {
-    this.$store.dispatch("checkAuth");
     this.$store
       .dispatch("getDetailData", this.$route.params)
       .then(() => {})

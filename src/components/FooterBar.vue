@@ -67,7 +67,7 @@
           </router-link>
         </li>
         <li class="flex-fill nav-item text-center">
-          <router-link to="mypage" class="active nav-link">
+          <router-link to="/mypage" class="active nav-link">
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@
           class="flex-fill nav-item text-center"
           v-if="$store.state.auth.Tier > 0"
         >
-          <router-link to="write" class="active nav-link">
+          <router-link to="/write" class="active nav-link">
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
