@@ -10,6 +10,8 @@ const auth = {
       Id: "",
       ObjectId: "",
       Tier: 0,
+      productsData: [],
+      commentsData: [],
     };
   },
   mutations: {
@@ -33,6 +35,18 @@ const auth = {
         state.AuthStatus = 0;
       }
     },
+    setMyPageData(state, data) {
+      state.Id = data.data.user.id;
+      state.ObjectId = data.data.user._id;
+      state.Tier = data.data.user.tier;
+      state.productsData = data.data.myProducts;
+      state.commentsData = data.data.myComments;
+      if (data.data.user.id) {
+        state.AuthStatus = 1;
+      } else {
+        state.AuthStatus = 0;
+      }
+    },
   },
   actions: {
     authLogin(context, state) {
@@ -50,7 +64,7 @@ const auth = {
     },
     getAuthData(context) {
       axios.get("api/auth/mypage").then((data) => {
-        context.commit("setUserData", data);
+        context.commit("setMyPageData", data);
       });
     },
     changeAuthTier(context, state) {

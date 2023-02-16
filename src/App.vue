@@ -61,8 +61,7 @@ export default {
     return {};
   },
   methods: {},
-  mounted() {
-    //App.vue
+  beforeCreate() {
     this.$store.dispatch("checkAuth");
   },
 };

@@ -11,45 +11,28 @@
       class="GridSwiper"
     >
       <SwiperSlide v-for="(a, i) in dataset" :key="i">
-        <div class="card border-0 start" :class="{ end: show }">
-          <div>
-            <router-link
-              :to="{ path: '/products/' + a.id }"
-              class="text-decoration-none text-dark"
-            >
-              <img
-                :src="a.image"
-                style="height: 10rem; width:10rem object-fit: cover"
-                alt="..."
-              />
-              <div class="card-body">
-                <p class="card-text">
-                  {{ a.category }}
-                </p>
-                <h6 class="card-title">{{ a.title }}</h6>
-                <p class="card-text">{{ a.description }}</p>
-                <p class="card-text">가격 : {{ a.price }} $</p>
-                <p class="card-text">
-                  {{ a.rating.rate }} 구매수 : {{ a.rating.count }}
-                </p>
-              </div>
-            </router-link>
-            <span
-              v-if="!a.editor || a.editor === this.$store.state.auth.ObjectId"
-            >
-              <span v-if="this.$store.state.auth.Tier > 0">
-                <p>Editor : {{ a.editor }}</p>
-                <p>User : {{ $store.state.auth.ObjectId }}</p>
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  @click="$store.dispatch('deleteProducts', a.id), remove(a.id)"
-                >
-                  DELETE
-                </button>
-              </span>
-            </span>
-          </div>
+        <div class="card border">
+          <router-link
+            :to="{ path: '/products/' + a.id }"
+            class="text-decoration-none text-dark"
+          >
+            <img
+              :src="a.image"
+              style="height: 18rem; width:18rem object-fit: cover"
+              alt="..."
+            />
+            <div class="card-body">
+              <p class="card-text">
+                {{ a.category }}
+              </p>
+              <h6 class="card-title">{{ a.title }}</h6>
+              <p class="card-text">{{ a.description }}</p>
+              <p class="card-text">가격 : {{ a.price }} $</p>
+              <p class="card-text">
+                {{ a.rating.rate }} 구매수 : {{ a.rating.count }}
+              </p>
+            </div>
+          </router-link>
         </div>
       </SwiperSlide>
     </swiper>
@@ -82,6 +65,11 @@ export default {
       show: false,
     };
   },
+  methods: {
+    hidden() {
+      this.show = true;
+    },
+  },
   setup() {
     return {
       modules: [Grid, Pagination],
@@ -109,17 +97,5 @@ a {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-}
-
-.fade-enter-active {
-  transition: opacity 1s;
-}
-
-.start {
-  opacity: 1;
-  transition: all 1s;
-}
-.end {
-  opacity: 0;
 }
 </style>

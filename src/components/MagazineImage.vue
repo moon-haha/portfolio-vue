@@ -49,25 +49,10 @@
                 <p class="card-text">
                   {{ a.description }}
                 </p>
-                <p class="card-text">{{ a.price }},000원</p>
+                <p class="card-text">{{ a.price }}$</p>
               </div>
             </div>
           </div>
-          <span
-            v-if="!a.editor || a.editor === this.$store.state.auth.ObjectId"
-          >
-            <span v-if="this.$store.state.auth.Tier > 0">
-              <p>Editor : {{ a.editor }}</p>
-              <p>User : {{ $store.state.auth.ObjectId }}</p>
-              <button
-                type="button"
-                class="btn btn-danger"
-                @click="$store.dispatch('deleteProducts', a.id), (show = !show)"
-              >
-                DELETE
-              </button>
-            </span>
-          </span>
         </div>
       </Transition>
     </div>

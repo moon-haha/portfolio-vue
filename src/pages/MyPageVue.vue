@@ -4,20 +4,110 @@
     <h1>Hello {{ $store.state.auth.Id }}</h1>
     <h2>{{ $store.state.auth.ObjectId }}</h2>
     <div>
-      <h1 v-if="$store.state.auth.Tier == 0">
+      <div v-if="$store.state.auth.Tier == 0">
         {{ $store.state.auth.Tier }} 일반유저입니다.
-        <h1>- 댓글 관리 가능</h1>
-      </h1>
-      <h1 v-else-if="$store.state.auth.Tier == 1">
+        <h4>내가 작성한 댓글</h4>
+        <div
+          class="card"
+          v-for="(a, i) in $store.state.auth.commentsData"
+          :key="i"
+        >
+          <p>원문 글 : {{ a.parentsId }}</p>
+          <p>댓글 : {{ a.commentBody }}</p>
+          <p>댓글 id : {{ a._id }}</p>
+          <button
+            type="button"
+            @click="deleteCommentMethod(a._id)"
+            class="btn btn-danger"
+          >
+            댓글삭제
+          </button>
+        </div>
+      </div>
+      <div v-else-if="$store.state.auth.Tier == 1">
         {{ $store.state.auth.Tier }} 셀러유저입니다..
-        <h1>- 댓글 관리 가능</h1>
-        <h1>- 게시글 관리 가능</h1>
-      </h1>
-      <h1 v-else-if="$store.state.auth.Tier == 2">
+        <h4>내가 작성한 댓글</h4>
+        <div
+          class="card"
+          v-for="(a, i) in $store.state.auth.commentsData"
+          :key="i"
+        >
+          <p>원문 글 : {{ a.parentsId }}</p>
+          <p>댓글 : {{ a.commentBody }}</p>
+          <p>댓글 id : {{ a._id }}</p>
+          <button
+            type="button"
+            @click="deleteCommentMethod(a._id)"
+            class="btn btn-danger"
+          >
+            댓글삭제
+          </button>
+        </div>
+        <h4>내가 작성한 글</h4>
+        <div
+          class="card"
+          v-for="(a, i) in $store.state.auth.productsData"
+          :key="i"
+        >
+          글 id : {{ a.id }} 글 제목 : {{ a.title }} 글 설명 :
+          {{ a.description }} 가격 : {{ a.price }}
+          <div>
+            <button
+              type="button"
+              class="btn btn-danger"
+              @click="$store.dispatch('deleteProducts', a.id)"
+            >
+              글삭제
+            </button>
+            <button type="button" class="btn btn-success">수정가능</button>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="$store.state.auth.Tier == 2">
         {{ $store.state.auth.Tier }} 관리자입니다..
-        <h1>- 모든 댓글 관리 가능</h1>
-        <h1>- 모든 게시글 관리 가능</h1>
-      </h1>
+        <h4>모든 댓글</h4>
+        <div
+          class="card"
+          v-for="(a, i) in $store.state.auth.commentsData"
+          :key="i"
+        >
+          <p>원문 글 : {{ a.parentsId }}</p>
+          <p>댓글 : {{ a.commentBody }}</p>
+          <button
+            type="button"
+            @click="deleteCommentMethod(a._id)"
+            class="btn btn-danger"
+          >
+            댓글삭제
+          </button>
+        </div>
+        <h4>모든 글</h4>
+        <div
+          class="card"
+          v-for="(a, i) in $store.state.auth.productsData"
+          :key="i"
+        >
+          글 id : {{ a.id }} 글 제목 : {{ a.title }} 글 설명 :
+          {{ a.description }} 가격 : {{ a.price }}
+          <div>
+            <button
+              type="button"
+              class="btn btn-danger"
+              @click="$store.dispatch('deleteProducts', a.id)"
+            >
+              글삭제
+            </button>
+            <router-link
+              :to="{
+                path: '/products/edit/' + a.id,
+              }"
+              class="text-decoration-none text-dark"
+            >
+              <button type="button" class="btn btn-success">수정하기</button>
+            </router-link>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="dropdown">
       <button
@@ -88,9 +178,14 @@ export default {
       TierValue: 0,
     };
   },
-  created() {
-    this.$store.dispatch("checkAuth");
+  mounted() {
+    this.$store.dispatch("getAuthData");
+  },
+  methods: {
+    deleteCommentMethod(data) {
+      this.$store.dispatch("deleteComment", data).then(() => {});
+    },
   },
 };
 </script>
-<style lang=""></style>
+<style></style>

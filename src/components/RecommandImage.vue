@@ -31,55 +31,36 @@
         v-for="(a, i) in $store.state.products.rateDataset.data"
         :key="i"
       >
-        <Transition name="Fade" v-if="show">
-          <div class="card border-0">
-            <router-link
-              :to="{ path: '/products/' + a.id }"
-              class="text-decoration-none text-dark"
-            >
-              <img
-                :src="a.image"
-                style="
-                  height: 12rem;
-                  width: 12rem;
-                  object-fit: cover;
-                  margin: auto;
-                "
-                alt="..."
-                class="rounded"
-              />
-            </router-link>
+        <div class="card border-0">
+          <router-link
+            :to="{ path: '/products/' + a.id }"
+            class="text-decoration-none text-dark"
+          >
+            <img
+              :src="a.image"
+              style="
+                height: 12rem;
+                width: 12rem;
+                object-fit: cover;
+                margin: auto;
+              "
+              alt="..."
+              class="rounded"
+            />
+          </router-link>
 
-            <div class="card-body">
-              <h6 class="card-title">{{ a.title }}</h6>
-              <p class="card-text">
-                {{ a.category }}
-              </p>
-              <p class="card-text">{{ a.description }}</p>
-              <p class="card-text">가격 : {{ a.price }} $</p>
-              <p class="card-text">
-                평점 : {{ a.rating.rate }} 구매수 : {{ a.rating.count }}
-              </p>
-              <span
-                v-if="!a.editor || a.editor === this.$store.state.auth.ObjectId"
-              >
-                <span v-if="this.$store.state.auth.Tier > 0">
-                  <p>Editor : {{ a.editor }}</p>
-                  <p>User : {{ $store.state.auth.ObjectId }}</p>
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    @click="
-                      $store.dispatch('deleteProducts', a.id), (show = !show)
-                    "
-                  >
-                    DELETE
-                  </button>
-                </span>
-              </span>
-            </div>
+          <div class="card-body">
+            <h6 class="card-title">{{ a.title }}</h6>
+            <p class="card-text">
+              {{ a.category }}
+            </p>
+            <p class="card-text">{{ a.description }}</p>
+            <p class="card-text">가격 : {{ a.price }} $</p>
+            <p class="card-text">
+              평점 : {{ a.rating.rate }} 구매수 : {{ a.rating.count }}
+            </p>
           </div>
-        </Transition>
+        </div>
       </swiper-slide>
     </swiper>
   </section>

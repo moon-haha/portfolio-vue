@@ -56,6 +56,7 @@ const products = {
     setSearchValue(state, data) {
       state.SearchValue = data;
     },
+    setCommentData() {},
   },
   actions: {
     getCountDataset(context) {
@@ -142,15 +143,22 @@ const products = {
       });
     },
     deleteProducts(context, state) {
-      axios
-        .delete(`api/products/${state}`)
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((e) => {
-          console.log(e);
+      axios.delete("api/products/" + state).then(() => {
+        axios.get("api/auth/mypage").then((data) => {
+          context.commit("setMyPageData", data);
         });
+      });
+    },
+    deleteComment(context, state) {
+      ///:id/comment/:commentId 삭제요청
+      axios.delete("api/products/comments/" + state).then(() => {
+        axios.get("api/auth/mypage").then((data) => {
+          context.commit("setMyPageData", data);
+        });
+      });
     },
   },
 };
 export default products;
+
+// products.delete('/comments/:commentId', isLogged, function (req, res) {

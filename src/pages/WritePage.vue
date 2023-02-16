@@ -46,13 +46,15 @@
         </div>
       </div>
       <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupFile01">Upload</label>
+        <label class="input-group-text" for="inputGroupFile01"
+          >Image Upload</label
+        >
         <input
           type="file"
           @input="updateImage"
           class="form-control"
+          name="image"
           id="image"
-          disabled
         />
       </div>
       <div class="col-12">
@@ -88,16 +90,15 @@ export default {
         Title: "",
         Description: "",
         Price: Number,
-        //Image: String,
         Category: "Electronics",
         Editor: this.$store.state.auth.ObjectId,
+        Image,
       },
     };
   },
   methods: {
     updateTitle(e) {
       this.Products.Title = e.target.value;
-      console.log(this.Products.Title);
     },
     updateDescription(e) {
       this.Products.Description = e.target.value;
@@ -106,25 +107,35 @@ export default {
       this.Products.Price = e.target.value;
     },
     updateImage(e) {
-      this.Products.Image = e.target.value;
+      if (e.target.files !== undefined) {
+        const uploadFile = e.target.files[0];
+        this.Products.Image = uploadFile;
+        console.log(uploadFile);
+      }
     },
     updateCategory(e) {
       this.Products.Category = e.target.value;
     },
     Upload() {
+      const ProductformData = new FormData();
+
+      ProductformData.append("image", this.Products.Image);
+      ProductformData.append("title", this.Products.Title);
+      ProductformData.append("description", this.Products.Description);
+      ProductformData.append("price", this.Products.Price);
+      ProductformData.append("category", this.Products.Category);
+
       //API 서버에 글쓰기 요청
       axios
-        .post("api/products", {
-          title: this.Products.Title,
-          description: this.Products.Description,
-          price: this.Products.Price,
-          category: this.Products.Category,
-          editor: this.Products.Editor,
+        .post("api/products", ProductformData, {
+          headers: { "Content-Type": "multipart/form-data" },
         })
         .then(() => {
-          this.$router.push("/");
+          this.$router.push("/mypage");
+        })
+        .catch((e) => {
+          console.log(e);
         });
-      //this.products
     },
   },
 };

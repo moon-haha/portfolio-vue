@@ -8,7 +8,7 @@
           type="text"
           placeholder="Title"
           @input="updateTitle"
-          :value="$store.state.products.DetailData.data.title"
+          :value="$store.state.products.DetailData.data.productsData.title"
           aria-label="default input example"
         />
       </div>
@@ -19,7 +19,7 @@
           type="number"
           placeholder="price"
           @input="updatePrice"
-          :value="$store.state.products.DetailData.data.price"
+          :value="$store.state.products.DetailData.data.productsData.price"
           aria-label="default input example"
         />
       </div>
@@ -31,7 +31,9 @@
             aria-label="With textarea"
             placeholder="description"
             @input="updateDescription"
-            :value="$store.state.products.DetailData.data.description"
+            :value="
+              $store.state.products.DetailData.data.productsData.description
+            "
           ></textarea>
         </div>
       </div>
@@ -42,7 +44,9 @@
           >
           <select
             @input="updateCategory"
-            :select="$store.state.products.DetailData.data.category"
+            :select="
+              $store.state.products.DetailData.data.productsData.category
+            "
             class="form-select"
             id="Category"
           >
@@ -54,13 +58,14 @@
         </div>
       </div>
       <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupFile01">Upload</label>
+        <label class="input-group-text" for="inputGroupFile01">{{
+          $store.state.products.DetailData.data.productsData.image
+        }}</label>
         <input
           type="file"
           @input="updateImage"
           class="form-control"
           id="image"
-          disabled
         />
       </div>
       <div class="col-12">
@@ -78,22 +83,48 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.VUE_APP_API_SERVER;
 
 export default {
+  watch: {
+    "$store.auth.state.Tier": function () {
+      if (this.$store.auth.state.Tier == 0) {
+        console.log("수정불가");
+        this.$router.push("/");
+      } else if (this.$store.auth.state.Tier > 0) {
+        console.log("수정가능");
+      }
+    },
+  },
+
   data() {
     return {
       Products: {
         Title: "",
         Description: "",
         Price: Number,
-        //Image: String,
         Category: "",
         Editor: "",
+        Image: "",
       },
     };
   },
   beforeCreate() {
     this.$store
       .dispatch("getDetailData", this.$route.params)
-      .then(() => {})
+      .then(() => {
+        this.Products.Title =
+          this.$store.state.products.DetailData.data.productsData.title;
+        this.Products.Description =
+          this.$store.state.products.DetailData.data.productsData.description;
+        this.Products.Price =
+          this.$store.state.products.DetailData.data.productsData.price;
+        this.Products.Category =
+          this.$store.state.products.DetailData.data.productsData.category;
+        this.Products.Editor =
+          this.$store.state.products.DetailData.data.productsData.editor;
+        this.Products.Image =
+          this.$store.state.products.DetailData.data.productsData.image;
+
+        console.log(this.Products);
+      })
       .catch(() => {});
   },
   methods: {
@@ -107,20 +138,28 @@ export default {
       this.Products.Price = e.target.value;
     },
     updateImage(e) {
-      this.Products.Image = e.target.value;
+      if (e.target.files !== undefined) {
+        const uploadFile = e.target.files[0];
+        this.Products.Image = uploadFile;
+        console.log(this.Products.Image);
+      }
     },
     updateCategory(e) {
       this.Products.Category = e.target.value;
     },
     Update() {
+      const ProductformData = new FormData();
+
+      ProductformData.append("title", this.Products.Title);
+      ProductformData.append("description", this.Products.Description);
+      ProductformData.append("image", this.Products.Image);
+      ProductformData.append("price", this.Products.Price);
+      ProductformData.append("category", this.Products.Category);
+
       //API 서버에 글쓰기 요청
       axios
-        .put("api/products/" + this.$route.params.id, {
-          title: this.Products.Title,
-          description: this.Products.Description,
-          price: this.Products.Price,
-          category: this.Products.Category,
-          editor: this.Products.Editor,
+        .put("api/products/" + this.$route.params.id, ProductformData, {
+          headers: { "Content-Type": "multipart/form-data" },
         })
         .then(() => {
           this.$router.push("/products/" + this.$route.params.id);

@@ -24,23 +24,6 @@
             <p class="card-text">{{ a.description }}</p>
             <h3 class="card-text">{{ a.price }} $</h3>
             <p class="card-text">{{ a.rating.count }}</p>
-            <span
-              v-if="!a.editor || a.editor === this.$store.state.auth.ObjectId"
-            >
-              <span v-if="this.$store.state.auth.Tier > 0">
-                <p>Editor : {{ a.editor }}</p>
-                <p>User : {{ $store.state.auth.ObjectId }}</p>
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  @click="
-                    $store.dispatch('deleteProducts', a.id), (show = !show)
-                  "
-                >
-                  DELETE
-                </button>
-              </span>
-            </span>
           </div>
         </div>
       </Transition>
