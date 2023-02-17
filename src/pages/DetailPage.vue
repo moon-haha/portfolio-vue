@@ -366,10 +366,7 @@ export default {
     };
   },
   beforeCreate() {
-    this.$store
-      .dispatch("getDetailData", this.$route.params)
-      .then(() => {})
-      .catch(() => {});
+    this.$store.dispatch("getDetailData", this.$route.params);
   },
   methods: {
     toast() {
@@ -478,7 +475,7 @@ export default {
           commentId: id,
         })
         .then(() => {
-          this.$router.push("/products/" + this.$route.params.id);
+          this.$store.dispatch("getDetailData", this.$route.params);
         });
     },
     uploadComment() {

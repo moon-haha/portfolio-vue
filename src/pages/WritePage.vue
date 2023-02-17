@@ -130,8 +130,8 @@ export default {
         .post("api/products", ProductformData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
-        .then(() => {
-          this.$router.push("/mypage");
+        .then((data) => {
+          this.$router.push("/products/" + data.data.id);
         })
         .catch((e) => {
           console.log(e);

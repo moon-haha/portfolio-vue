@@ -122,8 +122,6 @@ export default {
           this.$store.state.products.DetailData.data.productsData.editor;
         this.Products.Image =
           this.$store.state.products.DetailData.data.productsData.image;
-
-        console.log(this.Products);
       })
       .catch(() => {});
   },
@@ -141,7 +139,6 @@ export default {
       if (e.target.files !== undefined) {
         const uploadFile = e.target.files[0];
         this.Products.Image = uploadFile;
-        console.log(this.Products.Image);
       }
     },
     updateCategory(e) {

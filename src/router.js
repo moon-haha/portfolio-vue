@@ -38,10 +38,8 @@ const routes = [
     component: MyPageVue,
     beforeEnter: (to, from, next) => {
       if (store.state.auth.AuthStatus === 1) {
-        //console.log(store.state.AuthStatus);
         next();
       } else if (store.state.auth.AuthStatus === 0) {
-        //console.log(store.state.AuthStatus);
         next("/login");
       }
     },
@@ -88,12 +86,9 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior(to) {
+  scrollBehavior() {
     // 항상 맨 위로 스크롤
-
-    if (typeof to.params.id == "string") {
-      return { top: 0 };
-    }
+    return { top: 0 };
   },
 });
 
