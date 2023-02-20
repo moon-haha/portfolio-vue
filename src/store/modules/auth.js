@@ -73,12 +73,24 @@ const auth = {
         .post("api/auth/tier", { TierValue: state.TierValue })
         .then((data) => {
           context.commit("setTierData", data);
+          axios.get("api/auth/mypage").then((data) => {
+            context.commit("setMyPageData", data);
+          });
         });
     },
     checkAuth(context) {
       axios.get("api/auth/check").then((data) => {
         context.commit("setUserData", data);
       });
+    },
+    authRegister(context, state) {
+      axios
+        .post("api/auth/register", { id: state.Id, pw: state.Pw })
+        .then(() => {
+          axios.get("api/auth/check").then((data) => {
+            context.commit("setUserData", data);
+          });
+        });
     },
   },
 };

@@ -59,7 +59,14 @@
             >
               글삭제
             </button>
-            <button type="button" class="btn btn-success">수정가능</button>
+            <router-link
+              :to="{
+                path: '/products/edit/' + a.id,
+              }"
+              class="text-decoration-none text-dark"
+            >
+              <button type="button" class="btn btn-success">수정하기</button>
+            </router-link>
           </div>
         </div>
       </div>
@@ -123,13 +130,9 @@
           <a
             class="dropdown-item"
             @click="
-              this.$store
-                .dispatch('changeAuthTier', {
-                  TierValue: 0,
-                })
-                .then((data) => {
-                  $router.push('mypage');
-                })
+              this.$store.dispatch('changeAuthTier', {
+                TierValue: 0,
+              })
             "
             href="#"
             >User</a
@@ -139,13 +142,9 @@
           <a
             class="dropdown-item"
             @click="
-              this.$store
-                .dispatch('changeAuthTier', {
-                  TierValue: 1,
-                })
-                .then((data) => {
-                  $router.push('mypage');
-                })
+              this.$store.dispatch('changeAuthTier', {
+                TierValue: 1,
+              })
             "
             href="#"
             >Seller</a
@@ -155,13 +154,9 @@
           <a
             class="dropdown-item"
             @click="
-              this.$store
-                .dispatch('changeAuthTier', {
-                  TierValue: 2,
-                })
-                .then((data) => {
-                  $router.push('mypage');
-                })
+              this.$store.dispatch('changeAuthTier', {
+                TierValue: 2,
+              })
             "
             href="#"
             >Admin</a

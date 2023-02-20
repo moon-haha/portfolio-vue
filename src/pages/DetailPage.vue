@@ -386,7 +386,9 @@ export default {
         // 1. 만약에 로컬스토리지가 비었으면 - JSON stringify해서 데이터를 넣는다
         localStorage.setItem(
           "likeList",
-          JSON.stringify(this.$store.products.state.DetailData.data)
+          JSON.stringify(
+            this.$store.state.products.DetailData.data.productsData
+          )
         );
         localStorage.setItem("Count", 1); // 카운트는 1
         console.log("저장하고 메시지 뱉어기");
@@ -402,7 +404,7 @@ export default {
         console.log("리스트 가져오고");
         let afterList = JSON.parse(
           JSON.stringify(
-            this.products.$store.state.products.DetailData.data.productsData
+            this.$store.state.products.DetailData.data.productsData
           )
         );
         console.log("지금 데이터 가져오고");

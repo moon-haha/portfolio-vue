@@ -99,7 +99,7 @@ export default {
       Products: {
         Title: "",
         Description: "",
-        Price: Number,
+        Price: 0,
         Category: "",
         Editor: "",
         Image: "",
@@ -146,7 +146,7 @@ export default {
     },
     Update() {
       const ProductformData = new FormData();
-
+      console.log(this.Products.Price);
       ProductformData.append("title", this.Products.Title);
       ProductformData.append("description", this.Products.Description);
       ProductformData.append("image", this.Products.Image);

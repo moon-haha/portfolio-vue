@@ -8,7 +8,6 @@
             class="form-control"
             id="id"
             placeholder="test12345"
-            :value="loginId"
             @input="updateLoginInputId"
           />
           <label for="floatingInput">Id</label>
@@ -20,7 +19,6 @@
             id="pw"
             placeholder="Password"
             autocomplete=""
-            :value="loginPw"
             @input="updateLoginInputPw"
           />
           <label for="floatingPassword">Password</label>
@@ -30,7 +28,7 @@
         <button
           type="submit"
           class="btn btn-lg btn-primary"
-          @click.prevent="
+          @click="
             this.$store.dispatch('authLogin', this.login).then((data) => {
               $router.push('mypage');
             })
@@ -74,13 +72,11 @@
                   ></button>
                 </div>
                 <div class="modal-body">
-                  <h1 class="h3 mb-3 fw-normal">회원가입 페이지</h1>
-
                   <div class="form-floating">
                     <input
                       class="form-control"
                       id="registerId"
-                      placeholder="test12345"
+                      @input="updateRegisterInputId"
                     />
                     <label for="floatingInput">Id</label>
                   </div>
@@ -89,7 +85,7 @@
                       type="password"
                       class="form-control"
                       id="registerPw"
-                      placeholder="Password"
+                      @input="updateRegisterInputPw"
                       autocomplete=""
                     />
                     <label for="floatingPassword">Password</label>
@@ -103,8 +99,19 @@
                   >
                     닫기
                   </button>
-                  <button type="button" class="btn btn-primary">
-                    회원가입 하기
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                    @click="
+                      this.$store
+                        .dispatch('authRegister', this.register)
+                        .then((data) => {
+                          $router.push('/');
+                        })
+                    "
+                  >
+                    회원가입 요청
                   </button>
                 </div>
               </form>
@@ -131,6 +138,10 @@ export default {
         Id: "",
         Pw: "",
       },
+      register: {
+        Id: "",
+        Pw: "",
+      },
     };
   },
   methods: {
@@ -139,6 +150,12 @@ export default {
     },
     updateLoginInputPw(e) {
       this.login.Pw = e.target.value;
+    },
+    updateRegisterInputId(e) {
+      this.register.Id = e.target.value;
+    },
+    updateRegisterInputPw(e) {
+      this.register.Pw = e.target.value;
     },
   },
   watch: {
